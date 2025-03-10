@@ -198,13 +198,11 @@ class WordFamily:
                 return True
             if len(self.words) < len(other.words):
                 return False
-            else:
-                if self.difficulty > other.difficulty:
-                    return True
-                if self.difficulty < other.difficulty:
-                    return False
-                else:
-                    return self.feedback_colors < other.feedback_colors
+            if self.difficulty > other.difficulty:
+                return True
+            if self.difficulty < other.difficulty:
+                return False
+            return self.feedback_colors < other.feedback_colors
         except NotImplementedError as exc:
             raise exc + ('< operator only valid for WordFamily comparisons.')
 
