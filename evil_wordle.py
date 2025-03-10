@@ -134,7 +134,7 @@ class Keyboard:
                     formatted_string += "   " + color_word(self.colors[j], j)
                 elif i == 2:
                     formatted_string += " " + color_word(self.colors[j], j)
-            if i == 0 or i == 1:
+            if i in (0, 1):
                 formatted_string += "\n"
         return formatted_string
 
@@ -177,8 +177,7 @@ class WordFamily:
                     temp += 1
                 if self.feedback_colors[i] == NOT_IN_WORD_COLOR:
                     temp += 2
-                if temp > self.difficulty:
-                    self.difficulty = temp
+                self.difficulty = max(self.difficulty, temp)
 
 
     def __lt__(self, other):
@@ -197,12 +196,12 @@ class WordFamily:
         try:
             if len(self.words) > len(other.words):
                 return True
-            elif len(self.words) < len(other.words):
+            if len(self.words) < len(other.words):
                 return False
             else:
                 if self.difficulty > other.difficulty:
                     return True
-                elif self.difficulty < other.difficulty:
+                if self.difficulty < other.difficulty:
                     return False
                 else:
                     return self.feedback_colors < other.feedback_colors
